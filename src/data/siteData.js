@@ -7,7 +7,7 @@ const users = [
     id: 'u_student_1',
     role: 'student',
     name: 'Vivek Kumar Rathour',
-    email: 'vivek@student.local',
+    email: 'vivek@gmail.com',
     password: 'password', // demo only
     studentId: '2400030562',
     avatarLetter: 'V',
@@ -17,7 +17,7 @@ const users = [
     id: 'u_student_2',
     role: 'student',
     name: 'Alice Johnson',
-    email: 'alice@student.local',
+    email: 'alice@gmail.com',
     password: 'password',
     studentId: '2400030789',
     avatarLetter: 'A',
@@ -27,7 +27,7 @@ const users = [
     id: 'u_admin_1',
     role: 'admin',
     name: 'Admin User',
-    email: 'admin@internhub.local',
+    email: 'admin@gmail.com',
     password: 'password',
     avatarLetter: 'A',
     permissions: ['manage_internships', 'manage_users']
