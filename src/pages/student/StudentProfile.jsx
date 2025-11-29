@@ -2,6 +2,9 @@ import StudentLayout from '../../components/StudentLayout.jsx';
 import { Camera, Mail, Plus } from 'lucide-react';
 
 export default function StudentProfile() {
+  // read current session user (mock backend stores session in localStorage)
+  const user = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('internhub_user') || 'null') : null;
+
   return (
     <StudentLayout>
       <div className="p-8">
@@ -10,7 +13,7 @@ export default function StudentProfile() {
           <div className="absolute -bottom-16 left-8">
             <div className="relative">
               <div className="w-32 h-32 bg-gray-300 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden">
-                <span className="text-4xl font-bold text-gray-600">S</span>
+                <span className="text-4xl font-bold text-gray-600">{user ? user.name.charAt(0) : 'S'}</span>
               </div>
               <button className="absolute bottom-2 right-2 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors">
                 <Camera className="w-5 h-5 text-white" />
@@ -23,8 +26,8 @@ export default function StudentProfile() {
         <div className="mt-20 bg-white rounded-xl border border-gray-200 p-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">Student Name</h1>
-              <p className="text-gray-600">student@example.com</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">{user?.name || 'Student Name'}</h1>
+              <p className="text-gray-600">{user?.email || 'student@example.com'}</p>
             </div>
             <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 hover:shadow-lg">
               Edit
@@ -38,7 +41,7 @@ export default function StudentProfile() {
               </label>
               <input
                 type="text"
-                defaultValue="Student Name"
+                defaultValue={user?.name || 'Student Name'}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               />
             </div>
@@ -50,6 +53,7 @@ export default function StudentProfile() {
               <input
                 type="text"
                 placeholder="Your First Name"
+                defaultValue={user?.nickname || ''}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               />
             </div>
@@ -60,7 +64,7 @@ export default function StudentProfile() {
               </label>
               <input
                 type="text"
-                defaultValue="2400030562"
+                defaultValue={user?.studentId || '2400030562'}
                 disabled
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-gray-50 text-gray-500"
               />
@@ -86,6 +90,7 @@ export default function StudentProfile() {
               <input
                 type="tel"
                 placeholder="+1 (555) 000-0000"
+                defaultValue={user?.phone || ''}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
               />
             </div>
@@ -122,7 +127,7 @@ export default function StudentProfile() {
                 Language
               </label>
               <select className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
-                <option>English</option>
+                <option>{user?.language || 'English'}</option>
                 <option>Spanish</option>
                 <option>French</option>
                 <option>German</option>
@@ -149,13 +154,12 @@ export default function StudentProfile() {
               Skills
             </label>
             <div className="flex flex-wrap gap-2 mb-3">
-              {['React', 'TypeScript', 'Node.js', 'Python', 'UI/UX'].map((skill, index) => (
+              {(user?.skills || ['React','TypeScript']).map((skill, index) => (
                 <span
                   key={index}
                   className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2"
                 >
                   <span>{skill}</span>
-                  <button className="hover:text-blue-900">×</button>
                 </span>
               ))}
             </div>
@@ -170,10 +174,10 @@ export default function StudentProfile() {
             <h3 className="text-lg font-bold text-gray-900 mb-4">My email Address</h3>
             <div className="bg-gray-50 rounded-lg p-4 flex items-center space-x-4 mb-4">
               <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                S
+                {user ? user.name.charAt(0) : 'S'}
               </div>
               <div className="flex-1">
-                <p className="font-medium text-gray-900">student@example.com</p>
+                <p className="font-medium text-gray-900">{user?.email || 'student@example.com'}</p>
                 <p className="text-xs text-gray-500">1 month ago</p>
               </div>
             </div>
