@@ -128,6 +128,35 @@ export default function LoginPage() {
           </div>
         )}
 
+        {/* NEW: Role toggle for sign-in */}
+        <div className="mb-4 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => setRole('student')}
+            className={`px-4 py-2 rounded-full font-medium transition ${
+              role === 'student' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'
+            }`}
+          >
+            Student
+          </button>
+          <button
+            type="button"
+            onClick={() => setRole('admin')}
+            className={`px-4 py-2 rounded-full font-medium transition ${
+              role === 'admin' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700'
+            }`}
+          >
+            Admin
+          </button>
+        </div>
+
+        {/* NEW: Demo credential hint */}
+        <div className="mb-4 text-center text-sm text-gray-500">
+          {role === 'admin'
+            ? 'Demo admin: admin@gmail.com / password'
+            : 'Demo student: vivek@gmail.com / password'}
+        </div>
+
         <form className="space-y-5" onSubmit={async (e) => {
           e.preventDefault();
           setAuthError('');
@@ -262,7 +291,9 @@ export default function LoginPage() {
             disabled={isSubmitting}
             className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-all duration-200 hover:shadow-lg"
           >
-            {isSignUp ? 'Create Account' : (isSubmitting ? 'Signing in…' : 'Sign In')}
+            {isSignUp
+              ? 'Create Account'
+              : (isSubmitting ? 'Signing in…' : `Sign In as ${role === 'admin' ? 'Admin' : 'Student'}`)}
           </button>
         </form>
 
